@@ -55,7 +55,27 @@ router.get("/", async (req, res) => {
 // POST /api/quotes
 router.post("/", async (req, res) => {
   try {
-    const { isCustomMaterial, isCustomSupplier, isCustomUnit } = req.body;
+    const { isCustomMaterial, isCustomSupplier, isCustomUnit, supplierName, materialName } = req.body;
+
+    // Check for duplicate supplier + material combination (case-insensitive)
+    // Only check approved and pending quotes - rejected quotes don't count as duplicates
+    const normalizedSupplier = supplierName.trim();
+    const normalizedMaterial = materialName.trim();
+    
+    // Escape special regex characters
+    const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    
+    const existingQuote = await Quote.findOne({
+      supplierName: { $regex: new RegExp(`^${escapeRegex(normalizedSupplier)}$`, "i") },
+      materialName: { $regex: new RegExp(`^${escapeRegex(normalizedMaterial)}$`, "i") },
+      status: { $in: ["approved", "pending"] }, // Only check non-rejected quotes
+    });
+
+    if (existingQuote) {
+      return res.status(409).json({
+        message: `A quote already exists for ${supplierName} - ${materialName}. Each supplier can only have one quote per material.`,
+      });
+    }
 
     let initialStatus = "approved";
     if (isCustomMaterial || isCustomSupplier || isCustomUnit) {
