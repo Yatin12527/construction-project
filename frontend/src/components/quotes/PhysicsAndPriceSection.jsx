@@ -65,6 +65,7 @@ export const PhysicsAndPriceSection = ({
             <input
               type="number"
               name="rawPrice"
+              value={formData.rawPrice ?? ""}
               required
               className="w-full pl-8 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-slate-400 outline-none"
               placeholder="0.00"
@@ -83,6 +84,7 @@ export const PhysicsAndPriceSection = ({
             <input
               type="number"
               name="conversionFactor"
+              value={formData.conversionFactor ?? 1}
               className="w-20 px-1 py-0.5 border border-yellow-400 rounded text-center font-bold"
               placeholder="?"
               onChange={handleChange}

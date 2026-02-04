@@ -36,7 +36,8 @@ export const PaymentTermsSection = ({
           <input
             type="number"
             value={creditDays}
-            onChange={(e) => setCreditDays(e.target.value)}
+            onChange={(e) => setCreditDays(Number(e.target.value) || 30)}
+            min={1}
             className="w-20 px-2 py-1 border border-black rounded font-bold text-center focus:ring-2 focus:ring-gray-200 outline-none"
           />
           <span className="text-xs text-slate-400">(Net {creditDays})</span>

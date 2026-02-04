@@ -74,6 +74,7 @@ const AddQuoteModal = ({
                 <div className="flex gap-2">
                   <select
                     name="deliveryTerm"
+                    value={formData.deliveryTerm || "FOR"}
                     className="w-full px-2 py-2 border rounded-lg bg-white text-sm"
                     onChange={handleChange}
                   >
@@ -84,6 +85,7 @@ const AddQuoteModal = ({
                     <input
                       type="number"
                       name="transportCost"
+                      value={formData.transportCost ?? 0}
                       placeholder="₹ Cost"
                       className="w-24 px-2 py-2 border border-red-200 bg-red-50 rounded-lg text-sm"
                       onChange={handleChange}
@@ -100,9 +102,9 @@ const AddQuoteModal = ({
                   {!formData.gstIncluded && (
                     <select
                       name="gstRate"
+                      value={formData.gstRate ?? 18}
                       className="w-20 px-2 py-2 border rounded-lg bg-white font-bold"
                       onChange={handleChange}
-                      defaultValue={18}
                     >
                       <option value="5">5%</option>
                       <option value="12">12%</option>
