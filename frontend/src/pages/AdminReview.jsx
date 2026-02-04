@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import api from "../utils/api";
-import { Check, X, Scale, User, ChevronLeft } from "lucide-react";
+import { Check, X, Scale, User, ChevronLeft, Clock } from "lucide-react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
@@ -178,6 +178,14 @@ const AdminReview = () => {
                       </div>
                       <div className="text-xs text-zinc-400 font-medium mt-0.5">
                         per {q.unit}
+                      </div>
+                      <div className="flex items-center justify-end gap-1 text-xs text-zinc-500 font-medium mt-2">
+                        <Clock className="h-3 w-3" />
+                        <span>
+                          {q.leadTime === 1
+                            ? "Next Day"
+                            : `${q.leadTime || 3} Days`}
+                        </span>
                       </div>
                     </td>
 

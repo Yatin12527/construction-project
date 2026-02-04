@@ -150,22 +150,38 @@ const AddQuoteModal = ({
             />
           </div>
 
-          {/* MOQ */}
-          <div className="space-y-1">
-            <label className="text-xs font-bold text-slate-500 uppercase">
-              Minimum Order Qty (MOQ)
-            </label>
-            <div className="flex items-center gap-4">
+          {/* MOQ & Delivery days */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-500 uppercase">
+                Minimum Order Qty (MOQ)
+              </label>
+              <div className="flex items-center gap-4">
+                <input
+                  type="number"
+                  name="minOrderQuantity"
+                  className="w-full px-3 py-2 border rounded-lg"
+                  value={formData.minOrderQuantity ?? 1}
+                  onChange={handleChange}
+                />
+                <span className="text-sm font-bold text-slate-400 whitespace-nowrap">
+                  {formData.unit || "Unit"}s
+                </span>
+              </div>
+            </div>
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-slate-500 uppercase">
+                Days to deliver
+              </label>
               <input
                 type="number"
-                name="minOrderQuantity"
+                name="leadTime"
+                min={1}
                 className="w-full px-3 py-2 border rounded-lg"
-                defaultValue={1}
+                placeholder="e.g. 3"
+                value={formData.leadTime ?? 3}
                 onChange={handleChange}
               />
-              <span className="text-sm font-bold text-slate-400 whitespace-nowrap">
-                {formData.unit || "Unit"}s
-              </span>
             </div>
           </div>
 
