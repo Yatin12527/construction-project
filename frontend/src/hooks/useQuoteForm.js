@@ -1,9 +1,15 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { toast } from "react-hot-toast";
 import api from "../utils/api";
 import { DEFAULT_SUPPLIERS, DEFAULT_MATERIALS, UNIT_TYPES, INITIAL_FORM_STATE } from "../constants/quoteConstants";
 
-export const useQuoteForm = (existingMaterials, existingSuppliers, onSuccess, onClose) => {
+const getInitialFormData = (smartSupplierList, smartMaterialList) => ({
+  ...INITIAL_FORM_STATE,
+  supplierName: smartSupplierList[0] ?? "",
+  materialName: smartMaterialList[0] ?? "",
+});
+
+export const useQuoteForm = (existingMaterials, existingSuppliers, onSuccess, onClose, isOpen) => {
   const [isCustomMaterial, setIsCustomMaterial] = useState(false);
   const [isCustomSupplier, setIsCustomSupplier] = useState(false);
   const [isCustomUnit, setIsCustomUnit] = useState(false);
@@ -22,11 +28,24 @@ export const useQuoteForm = (existingMaterials, existingSuppliers, onSuccess, on
     [existingSuppliers]
   );
 
-  const [formData, setFormData] = useState({
-    ...INITIAL_FORM_STATE,
-    supplierName: smartSupplierList[0],
-    materialName: smartMaterialList[0],
-  });
+  const [formData, setFormData] = useState(() =>
+    getInitialFormData(smartSupplierList, smartMaterialList)
+  );
+
+  const prevOpenRef = useRef(false);
+  // Reset form only when modal opens (not when lists change while open)
+  useEffect(() => {
+    if (isOpen && !prevOpenRef.current) {
+      setIsCustomMaterial(false);
+      setIsCustomSupplier(false);
+      setIsCustomUnit(false);
+      setMeasureType("MASS");
+      setPaymentMode("Advance");
+      setCreditDays(30);
+      setFormData(getInitialFormData(smartSupplierList, smartMaterialList));
+    }
+    prevOpenRef.current = isOpen;
+  }, [isOpen, smartSupplierList, smartMaterialList]);
 
   // Sync payment terms
   useEffect(() => {

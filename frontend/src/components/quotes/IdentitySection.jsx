@@ -1,6 +1,7 @@
 import { ChevronDown } from "lucide-react";
 
 export const IdentitySection = ({
+  formData,
   isCustomSupplier,
   isCustomMaterial,
   smartSupplierList,
@@ -18,6 +19,7 @@ export const IdentitySection = ({
           <div className="relative">
             <select
               name="supplierSelect"
+              value={formData.supplierName || ""}
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded-lg bg-white appearance-none"
             >
@@ -35,6 +37,7 @@ export const IdentitySection = ({
         ) : (
           <input
             name="supplierName"
+            value={formData.supplierName || ""}
             autoFocus
             placeholder="Name..."
             className="w-full px-3 py-2 border border-gray-400 bg-gray-100 rounded-lg"
@@ -53,6 +56,7 @@ export const IdentitySection = ({
           <div className="relative">
             <select
               name="materialSelect"
+              value={formData.materialName ?? ""}
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded-lg bg-white appearance-none"
             >
@@ -70,6 +74,7 @@ export const IdentitySection = ({
         ) : (
           <input
             name="materialName"
+            value={formData.materialName || ""}
             placeholder="Name..."
             className="w-full px-3 py-2 border border-gray-400 bg-gray-50/10 rounded-lg"
             onChange={handleChange}

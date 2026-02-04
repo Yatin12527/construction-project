@@ -28,7 +28,7 @@ const AddQuoteModal = ({
     smartSupplierList,
     handleChange,
     handleSubmit,
-  } = useQuoteForm(existingMaterials, existingSuppliers, onSuccess, onClose);
+  } = useQuoteForm(existingMaterials, existingSuppliers, onSuccess, onClose, isOpen);
 
   if (!isOpen) return null;
 
@@ -47,6 +47,7 @@ const AddQuoteModal = ({
 
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
           <IdentitySection
+            formData={formData}
             isCustomSupplier={isCustomSupplier}
             isCustomMaterial={isCustomMaterial}
             smartSupplierList={smartSupplierList}
