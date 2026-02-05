@@ -114,9 +114,6 @@ JWT_SECRET=your_jwt_secret_key
 PORT=5000
 NODE_ENV=development
 FRONTEND_URL=http://localhost:5173
-CLOUDINARY_CLOUD_NAME=your_cloudinary_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
 ```
 
 ### Running the Application
